@@ -6,35 +6,56 @@ namespace TechJobsTests
     [TestClass]
     public class JobTests
     {
+        Job testJobOne;
+        Job testJobTwo;
+        Job testJobThree;
+        Job testJobFour;
+
+        [TestInitialize]
+        public void JobExamples()
+        {
+            testJobOne = new Job();
+            testJobTwo = new Job();
+            testJobThree = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+            testJobFour = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+
+        }
+
         [TestMethod]
         public void TestSettingJobId()
         {
-            Job testJobOne = new Job();
-            Job testJobTwo = new Job();
-
             Assert.AreEqual(1, testJobTwo.Id - testJobOne.Id, .001);
         }
 
         [TestMethod]
         public void TestJobConstructorSetsAllFields()
         {
-            Job testJob = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-
-            Assert.IsTrue(testJob.Name == "Product tester");
-            Assert.IsTrue(testJob.EmployerName.Value == "ACME");
-            Assert.IsTrue(testJob.EmployerLocation.Value == "Desert");
-            Assert.IsTrue(testJob.JobType.Value == "Quality control");
-            Assert.IsTrue(testJob.JobCoreCompetency.Value == "Persistence");
-            Assert.IsTrue(testJob.Id != null);
+            Assert.IsTrue(testJobThree.Name == "Product tester");
+            Assert.IsTrue(testJobThree.EmployerName.Value == "ACME");
+            Assert.IsTrue(testJobThree.EmployerLocation.Value == "Desert");
+            Assert.IsTrue(testJobThree.JobType.Value == "Quality control");
+            Assert.IsTrue(testJobThree.JobCoreCompetency.Value == "Persistence");
+            Assert.IsTrue(testJobThree.Id != null);
         }
 
         [TestMethod]
         public void TestJobsForEquality()
         {
-            Job testJobOne = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-            Job testJobTwo = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-
-            Assert.IsFalse(testJobOne.Equals(testJobTwo));
+            Assert.IsFalse(testJobThree.Equals(testJobFour));
         }
+
+        [TestMethod]
+        public void TestToStringProducesBlankLinesBeforeAfter()
+        {
+            Assert.IsTrue(testJobOne.ToString().Substring(0, 1) == "\n");
+            Assert.IsTrue(testJobOne.ToString().Substring(testJobOne.ToString().Length - 1, 1) == "\n");
+        }
+
+        //adding this test made the previous test not work. changed from testJobOne to testJobThree and still doesn't work.
+        //[TestMethod]
+        //public void TestToStringPrintsJobData()
+        //{
+        //    Assert.AreEqual("\nID: " + testJobThree.Id + "\nName: Product tester\nEmployer: ACME\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Persistence\n", testJobThree.ToString());
+        //}
     }
 }
