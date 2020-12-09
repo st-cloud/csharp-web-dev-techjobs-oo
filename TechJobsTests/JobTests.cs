@@ -10,6 +10,7 @@ namespace TechJobsTests
         Job testJobTwo;
         Job testJobThree;
         Job testJobFour;
+        Job testJobFive;
 
         [TestInitialize]
         public void JobExamples()
@@ -18,7 +19,7 @@ namespace TechJobsTests
             testJobTwo = new Job();
             testJobThree = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
             testJobFour = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-
+            testJobFive = new Job("Product tester", new Employer(""), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency(""));
         }
 
         [TestMethod]
@@ -30,12 +31,12 @@ namespace TechJobsTests
         [TestMethod]
         public void TestJobConstructorSetsAllFields()
         {
+            Assert.IsTrue(testJobThree.Id != null);
             Assert.IsTrue(testJobThree.Name == "Product tester");
             Assert.IsTrue(testJobThree.EmployerName.Value == "ACME");
             Assert.IsTrue(testJobThree.EmployerLocation.Value == "Desert");
             Assert.IsTrue(testJobThree.JobType.Value == "Quality control");
             Assert.IsTrue(testJobThree.JobCoreCompetency.Value == "Persistence");
-            Assert.IsTrue(testJobThree.Id != null);
         }
 
         [TestMethod]
@@ -44,10 +45,14 @@ namespace TechJobsTests
             Assert.IsFalse(testJobThree.Equals(testJobFour));
         }
 
-        //When creating second test (PrintsJobData) and building the ToString method of Job accordingly, it made this first test fail because I was using testJobOne that doesn't have any arguments, meaning there is no this.Name etc. Is changing this to testJobThree, which does have these properties, cheating? It made the test pass, but it wouldn't work for a Job object created with the first constructor and only an Id.
         [TestMethod]
         public void TestToStringProducesBlankLinesBeforeAfter()
         {
+            //empty Job object
+            Assert.IsTrue(testJobOne.ToString().Substring(0, 1) == "\n");
+            Assert.IsTrue(testJobOne.ToString().Substring(testJobOne.ToString().Length - 1, 1) == "\n");
+
+            //Job object with properties
             Assert.IsTrue(testJobThree.ToString().Substring(0, 1) == "\n");
             Assert.IsTrue(testJobThree.ToString().Substring(testJobThree.ToString().Length - 1, 1) == "\n");
         }
@@ -57,5 +62,15 @@ namespace TechJobsTests
         {
             Assert.AreEqual($"\nID: {testJobThree.Id}\nName: Product tester\nEmployer: ACME\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Persistence\n", testJobThree.ToString());
         }
+
+        //CURRENTLY test 3 is not passing. see job class
+        //[TestMethod]
+        //public void TestToStringEmptyField()
+        //{
+        //    //Assert.IsTrue(testJobFive.ToString().Contains("Employer: Data not available"));
+        //    //Assert.IsTrue(testJobFive.ToString().Contains("Core Competency: Data not available"));
+
+        //    Assert.AreEqual($"\nID: {testJobFive.Id}\nName: Product tester\nEmployer: Data not available\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Data not available\n", testJobFive.ToString());
+        //}
     }
 }

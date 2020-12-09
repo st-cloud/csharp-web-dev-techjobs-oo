@@ -40,12 +40,26 @@ namespace TechJobsOO
 
         public override string ToString()
         {
-            return "\nID: " + this.Id +
-                "\nName: " + this.Name +
-                "\nEmployer: " + this.EmployerName.Value +
-                "\nLocation: " + this.EmployerLocation.Value +
-                "\nPosition Type: " + this.JobType.Value +
-                "\nCore Competency: " + this.JobCoreCompetency.Value + "\n";
+            if (String.IsNullOrEmpty(Name))
+            {
+                return "\n\n";
+            }
+
+            //Is this a bad idea, to put them in an array? What if a new field is added later? Is there a way to account for this?
+            //Is it incorrect to assign "Data not available" as the value? This changes the object rather than just changing how it prints.
+
+            //CURRENTLY test 3 is not passing. instead of assigning "data not available" to empty fields, fields remain empty.
+            string[] fields = { Name, EmployerName.Value, EmployerLocation.Value, JobType.Value, JobCoreCompetency.Value };
+
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (String.IsNullOrEmpty(fields[i]))
+                {
+                    fields[i] = "Data not available";
+                }
+            }
+
+            return $"\nID: {Id}\nName: {Name}\nEmployer: {EmployerName.Value}\nLocation: {EmployerLocation.Value}\nPosition Type: {JobType.Value}\nCore Competency: {JobCoreCompetency.Value}\n";
         }
     }
 }
