@@ -40,13 +40,12 @@ namespace TechJobsOO
 
         public override string ToString()
         {
-            //return "\nID: " + Id +
-            //    "\nName: " + Name +
-            //    "\nEmployer: " + EmployerName.Value + 
-            //    "\nLocation: " + EmployerLocation.Value + 
-            //    "\nPosition Type: " + JobType.Value + 
-            //    "\nCore Competency: " + JobCoreCompetency.Value + "\n";
-            return "\nhello\n";
+            return "\nID: " + this.Id +
+                "\nName: " + this.Name +
+                "\nEmployer: " + this.EmployerName.Value +
+                "\nLocation: " + this.EmployerLocation.Value +
+                "\nPosition Type: " + this.JobType.Value +
+                "\nCore Competency: " + this.JobCoreCompetency.Value + "\n";
         }
     }
 }

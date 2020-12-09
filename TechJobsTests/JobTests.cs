@@ -44,18 +44,18 @@ namespace TechJobsTests
             Assert.IsFalse(testJobThree.Equals(testJobFour));
         }
 
+        //When creating second test (PrintsJobData) and building the ToString method of Job accordingly, it made this first test fail because I was using testJobOne that doesn't have any arguments, meaning there is no this.Name etc. Is changing this to testJobThree, which does have these properties, cheating? It made the test pass, but it wouldn't work for a Job object created with the first constructor and only an Id.
         [TestMethod]
         public void TestToStringProducesBlankLinesBeforeAfter()
         {
-            Assert.IsTrue(testJobOne.ToString().Substring(0, 1) == "\n");
-            Assert.IsTrue(testJobOne.ToString().Substring(testJobOne.ToString().Length - 1, 1) == "\n");
+            Assert.IsTrue(testJobThree.ToString().Substring(0, 1) == "\n");
+            Assert.IsTrue(testJobThree.ToString().Substring(testJobThree.ToString().Length - 1, 1) == "\n");
         }
 
-        //adding this test made the previous test not work. changed from testJobOne to testJobThree and still doesn't work.
-        //[TestMethod]
-        //public void TestToStringPrintsJobData()
-        //{
-        //    Assert.AreEqual("\nID: " + testJobThree.Id + "\nName: Product tester\nEmployer: ACME\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Persistence\n", testJobThree.ToString());
-        //}
+        [TestMethod]
+        public void TestToStringPrintsJobData()
+        {
+            Assert.AreEqual($"\nID: {testJobThree.Id}\nName: Product tester\nEmployer: ACME\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Persistence\n", testJobThree.ToString());
+        }
     }
 }
