@@ -63,14 +63,10 @@ namespace TechJobsTests
             Assert.AreEqual($"\nID: {testJobThree.Id}\nName: Product tester\nEmployer: ACME\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Persistence\n", testJobThree.ToString());
         }
 
-        //CURRENTLY test 3 is not passing. see job class
-        //[TestMethod]
-        //public void TestToStringEmptyField()
-        //{
-        //    //Assert.IsTrue(testJobFive.ToString().Contains("Employer: Data not available"));
-        //    //Assert.IsTrue(testJobFive.ToString().Contains("Core Competency: Data not available"));
-
-        //    Assert.AreEqual($"\nID: {testJobFive.Id}\nName: Product tester\nEmployer: Data not available\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Data not available\n", testJobFive.ToString());
-        //}
+        [TestMethod]
+        public void TestToStringEmptyField()
+        {
+            Assert.AreEqual($"\nID: {testJobFive.Id}\nName: Product tester\nEmployer: Data not available\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Data not available\n", testJobFive.ToString());
+        }
     }
 }

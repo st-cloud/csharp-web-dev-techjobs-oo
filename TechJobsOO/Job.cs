@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace TechJobsOO
 {
     public class Job
@@ -40,26 +42,23 @@ namespace TechJobsOO
 
         public override string ToString()
         {
+            //accounts for Job object created with first constructor (only Id)
             if (String.IsNullOrEmpty(Name))
             {
                 return "\n\n";
             }
+        
+            List<string> fields = new List<string> { Name, EmployerName.Value, EmployerLocation.Value, JobType.Value, JobCoreCompetency.Value };
 
-            //Is this a bad idea, to put them in an array? What if a new field is added later? Is there a way to account for this?
-            //Is it incorrect to assign "Data not available" as the value? This changes the object rather than just changing how it prints.
-
-            //CURRENTLY test 3 is not passing. instead of assigning "data not available" to empty fields, fields remain empty.
-            string[] fields = { Name, EmployerName.Value, EmployerLocation.Value, JobType.Value, JobCoreCompetency.Value };
-
-            for (int i = 0; i < fields.Length; i++)
+            for (int i = 0; i < fields.Count; i++)
             {
-                if (String.IsNullOrEmpty(fields[i]))
+                if (fields[i] == null || fields[i] == "")
                 {
                     fields[i] = "Data not available";
                 }
             }
 
-            return $"\nID: {Id}\nName: {Name}\nEmployer: {EmployerName.Value}\nLocation: {EmployerLocation.Value}\nPosition Type: {JobType.Value}\nCore Competency: {JobCoreCompetency.Value}\n";
+            return $"\nID: {Id}\nName: {fields[0]}\nEmployer: {fields[1]}\nLocation: {fields[2]}\nPosition Type: {fields[3]}\nCore Competency: {fields[4]}\n";
         }
     }
 }
